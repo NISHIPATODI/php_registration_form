@@ -507,6 +507,8 @@ input {
   display: table-cell;
 }
 
+
+
 @media (max-width: 767px) {
   .card-3 {
     display: block;
