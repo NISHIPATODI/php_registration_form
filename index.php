@@ -24,6 +24,17 @@
 
     <!-- Main CSS-->
     <link href="css/main.css" rel="stylesheet" media="all">
+
+    <style>
+         .error {
+             color: #FF0000;
+             }
+         .output{
+             color:white;
+        font-size:20px;
+        }
+      </style>
+   
 </head>
 
 <body>
@@ -68,7 +79,10 @@
                 $phone = test_input($_POST["phone"]);
                 $valid= validate_num($phone);
                 if($valid==false){
-                     $phoneErr="phone no. is invalid";
+                    $phoneErr="phone no. is invalid";
+                }
+                else{
+                    $phoneErr=" ";
                 }
              }
             
@@ -89,7 +103,7 @@
 
          function validate_num($phone) {
             
-    if(preg_match("/^[0-9]{3}-[0-9]{4}-[0-9]{4}$/", $phone)) {
+    if(preg_match("/^[6-9]{1}[0-9]{9}$/", $phone)) {
       $valid= true;
 }
 else{
@@ -107,7 +121,7 @@ return $valid;
                     <h2 class="title">Registration Info</h2>
                     <form method="POST">
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Name" name="name">
+                            <input class="input--style-3" type="text" placeholder="Name" name="name" >
                         </div>
                         <div class="input-group">
                             <input class="input--style-3 js-datepicker" type="text" placeholder="Birthdate" name="birthday">
@@ -125,10 +139,14 @@ return $valid;
                             </div>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="email" placeholder="Email" name="email">
+                            <input class="input--style-3" type="text" placeholder="Email" name="email">
+                            <span class = "error"> <?php echo $emailErr;?></span>
+              
                         </div>
                         <div class="input-group">
                             <input class="input--style-3" type="text" placeholder="Phone" name="phone">
+                            <span class = "error"> <?php echo $phoneErr;?></span>
+              
                         </div>
                         <div class="input-group">
                             <input class="input--style-3" type="text" placeholder="Address" name="address">
@@ -155,66 +173,31 @@ return $valid;
             <div class="card card-3">
                 <div class="card-body">
                     <h2 class="title"><center>OUTPUT</center></h2>
-<div class="output">
-    <h5 style="color:white">Your given values are as:</h5>
+
                     <?php
-                    echo "<h2 style="color:white">Your given values are as:</h2>";
-                    echo $name;
-                    echo "<br>";
-                    
-                    echo $email;
-                    echo "<br>";
-                    
-                    echo $address;
-                    echo "<br>";
-                    
-                    echo $phone;
-                    echo "<br>";
-                   
-                    echo $birthdate;
-                    echo "<br>";
-                   
-                    
-                    echo $gender;
-                 ?>
-                
-</div>
+                    if($emailErr==null){
+         echo "<h2 color = white>Your given values are as:</h2>";
 
-                    <form method="POST">
-                        <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Name" name="name">
-                        </div>
-                        <div class="input-group">
-                            <input class="input--style-3 js-datepicker" type="text" placeholder="Birthdate" name="birthday">
-                            <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-                        </div>
-                        <div class="input-group">
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="gender">
-                                    <option disabled="disabled" selected="selected">Gender</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                    <option>Other</option>
-                                </select>
-                                <div class="select-dropdown"></div>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <input class="input--style-3" type="email" placeholder="Email" name="email">
-                        </div>
-                        <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Phone" name="phone">
-                        </div>
-                        <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Address" name="address">
-                        </div>
-                       
-                        <div class="p-t-10">
-                            <button class="btn btn--pill btn--green" type="submit">Submit</button>
-                        </div>
-                        
-                    </form>
-
+         echo "<p class='output'>" ."NAME:         ". $name . "</p>" ;
+         echo "<br>";
+         
+         echo "<p class='output'>" . "EMAIL:       ".$email . "</p>" ;
+         
+         echo "<br>";
+         
+         echo "<p class='output'>" ."BIRTHDATE:     ". $website. "</p>";
+         echo "<br>";
+         
+         echo "<p class='output'>" ."PHONE:          ".$phone. "</p>";
+         echo "<br>";
+         
+         echo "<p class='output'>"."GENDER :          ". $gender. "</p>";
+        }
+        else{
+        
+            echo "<p class='output'>"."invalid details"."</p>";        }
+      ?>
+   
 
 
                 </div>
@@ -235,8 +218,8 @@ return $valid;
     <!-- Main JS-->
     <script src="js/global.js"></script>
     <?php
-    echo "<h2>Your given values are as:</h2>";
-    echo $name;
+    echo "<h2 color = red >Your given values are as:</h2>";
+    echo "<p style='color:red;'>" . $name . "</p>" ;
     echo "<br>";
     
     echo $email;
