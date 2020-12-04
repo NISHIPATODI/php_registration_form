@@ -10,7 +10,7 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Au Register Forms by Colorlib</title>
+    <title>Nishi php registration form</title>
 
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -39,6 +39,14 @@
 
 <body>
     <?php
+
+
+$servername = "localhost"; 
+$username = "root";
+$password = "";
+$dbname = "practice" ;
+
+
          // define variables and set to empty values
          $nameErr = $emailErr = $genderErr = $websiteErr = $phoneErr= "";
          $name = $email = $gender = $phone =  $address = $birthdate  = "";
@@ -102,6 +110,7 @@
          }
 
          function validate_num($phone) {
+         
             
     if(preg_match("/^[6-9]{1}[0-9]{9}$/", $phone)) {
       $valid= true;
@@ -111,6 +120,22 @@ else{
 }
 return $valid;
          }
+
+         //DATABASE CONNECTION
+   $con = mysqli_connect($servername, $username , $password,$dbname) or   die("connection failed". mysqli_connect_error());
+
+        $querry = "INSERT INTO test(name ,email,gender,phone, address, birthdate ) values ('$name' , '$email', '$gender' ,'$phone','$address','$birthdate' )";
+         $result= mysqli_query($con, $querry) or die(mysqli_error($con));
+         if($result)
+         {   
+             echo (1);
+             
+           }
+                  
+     
+         mysqli_close($con);
+      
+
      
       ?>
       
@@ -118,16 +143,21 @@ return $valid;
         <div class="wrapper wrapper--w780">
             <div class="card card-3">
                 <div class="card-body">
-                    <h2 class="title">Registration Info</h2>
+                    <h2 class="title">Registration Form</h2>
                     <form method="POST">
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Name" name="name" >
+                        <label class="input--style-3" for="name">Name</label>
+                            <input class="input--style-3" type="text"  name="name" >
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3 js-datepicker" type="text" placeholder="Birthdate" name="birthday">
+                        <label class="input--style-3" for="name">Birthdate</label>
+                       
+                            <input class="input--style-3 js-datepicker" type="text"  name="birthdate">
                             <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                         </div>
                         <div class="input-group">
+                        <label class="input--style-3" for="name">Gender</label>
+                       
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <select name="gender">
                                     <option disabled="disabled" selected="selected">Gender</option>
@@ -139,20 +169,27 @@ return $valid;
                             </div>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Email" name="email">
+
+                        <label class="input--style-3" for="name">Email</label>
+                            <input class="input--style-3" type="text" name="email">
                             <span class = "error"> <?php echo $emailErr;?></span>
               
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Phone" name="phone">
+                        <label class="input--style-3" for="name">Phone</label>
+                        
+                            <input class="input--style-3" type="text"  name="phone">
                             <span class = "error"> <?php echo $phoneErr;?></span>
               
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Address" name="address">
+                        <label class="input--style-3" for="name">Address</label>
+
+                            <input class="input--style-3" type="text" name="address">
                         </div>
                        
                         <div class="p-t-10">
+                        
                             <button class="btn btn--pill btn--green" type="submit">Submit</button>
                         </div>
                         
@@ -172,7 +209,7 @@ return $valid;
 <marquee></marquee>
             <div class="card card-3">
                 <div class="card-body">
-                    <h2 class="title"><center>OUTPUT</center></h2>
+                    <h2 class="title"><center>Succesfully Data Inserted</center></h2>
 
                     <?php
                     if($emailErr==null){
@@ -185,17 +222,20 @@ return $valid;
          
          echo "<br>";
          
-         echo "<p class='output'>" ."BIRTHDATE:     ". $website. "</p>";
-         echo "<br>";
+         //echo "<p class='output'>" ."BIRTHDATE:     ". $birthdate. "</p>";
+         //echo "<br>";
          
          echo "<p class='output'>" ."PHONE:          ".$phone. "</p>";
          echo "<br>";
          
+         echo "<p class='output'>" ."Address:          ".$address. "</p>";
+         echo "<br>";
+        
          echo "<p class='output'>"."GENDER :          ". $gender. "</p>";
         }
         else{
         
-            echo "<p class='output'>"."invalid details"."</p>";        }
+            echo "<p class='output'>"."Invalid Details"."</p>";        }
       ?>
    
 
@@ -217,27 +257,7 @@ return $valid;
 
     <!-- Main JS-->
     <script src="js/global.js"></script>
-    <?php
-    echo "<h2 color = red >Your given values are as:</h2>";
-    echo "<p style='color:red;'>" . $name . "</p>" ;
-    echo "<br>";
-    
-    echo $email;
-    echo "<br>";
-    
-    echo $address;
-    echo "<br>";
-    
-    echo $phone;
-    echo "<br>";
    
-    echo $birthdate;
-    echo "<br>";
-   
-    
-    echo $gender;
- ?>
-
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
